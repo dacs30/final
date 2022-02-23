@@ -4,6 +4,7 @@ import useD3 from '../hooks/useD3';
 
 function BarChart() {
 
+    // example of outside function that you can call from your component
     const generateRandomData = () => {
         const data = [];
         for (let i = 0; i < 10; i++) {
@@ -12,6 +13,8 @@ function BarChart() {
         return data;
     }
 
+    // this is where you define your chart using the d3 library
+    // you need to pass in a reference to the DOM element and use the hooks
     const ref = useD3(
         (svg) => {
 

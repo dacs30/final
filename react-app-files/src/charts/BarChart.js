@@ -18,8 +18,8 @@ function BarChart() {
     const ref = useD3(
         (svg) => {
 
-            let w = 480,
-                h = 225,
+            let w = 200,
+                h = 300,
                 maxValue = 100;
 
             let dataset = generateRandomData()

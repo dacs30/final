@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import logo from '../logo.png';
+import { Button, IconButton } from '@mui/material';
 
 const darkTheme = createTheme({
     palette: {
@@ -49,11 +51,17 @@ export default function ElevateAppBar(props) {
         <React.Fragment>
             <CssBaseline />
             <ElevationScroll {...props}>
-                <AppBar >
+                <AppBar>
                     <Toolbar>
-                        <Typography variant="h6" component="div">
-                            Rick and Morty Data Visualization
-                        </Typography>
+                        <IconButton
+                            style={{flexGrow: 1, display: 'flex', justifyContent: 'start'}}
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                        >
+                            <img width={'60vw'} src={logo} alt="logo" />
+                        </IconButton>
+                        <Button target={'_blank'} color="inherit" href="https://github.com/orestropi/final">GitHub</Button>
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>

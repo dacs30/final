@@ -53,14 +53,16 @@ export default function ElevateAppBar(props) {
             <ElevationScroll {...props}>
                 <AppBar>
                     <Toolbar>
-                        <IconButton
-                            style={{flexGrow: 1, display: 'flex', justifyContent: 'start'}}
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                        >
-                            <img width={'60vw'} src={logo} alt="logo" />
-                        </IconButton>
+                        <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'start' }}>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                            >
+                                <img width={'60vw'} src={logo} alt="logo" />
+                            </IconButton>
+                        </div>
+
                         <Button target={'_blank'} color="inherit" href="https://github.com/orestropi/final">GitHub</Button>
                     </Toolbar>
                 </AppBar>

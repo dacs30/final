@@ -10,29 +10,30 @@ function MainFooter() {
         <footer className='footer'>
             <Box>
                 <Container maxWidth="lg">
-                    <Grid alignContent={'center'} container spacing={3}>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Typography variant="h6" color="white" gutterBottom>
-                                Footer
+                    <Grid container textAlign={'center'} direction="row" spacing={2}>
+                        <Grid item direction="column" item xs={12} sm={6} md={6}>
+                            <Typography variant="h6"  color="white" gutterbottom>
+                                Contributors
                             </Typography>
-                            <Typography variant="subtitle1" color="white">
-                                Something here to give the footer a purpose!
+                            <Typography variant="subtitle1" color="white" gutterbottom>
+                                <a href="https://github.com/dacs30">Danilo Correia </a>
+                            </Typography>
+                            <Typography variant="subtitle1" color="white" gutterbottom>
+                                <a href="https://github.com/dcjdunn2">Craig James Dunn </a>
+                            </Typography>
+                            <Typography variant="subtitle1" color="white" gutterbottom>
+                                <a href="https://github.com/orestropi">Orest Ropi</a>
+                            </Typography>
+                            <Typography variant="subtitle1" color="white" gutterbottom>
+                                <a href="https://github.com/orestropi">Maddison Caten</a>
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Typography variant="h6" color="white" gutterBottom>
-                                Footer
+                        <Grid item direction="column" xs={12} sm={6} md={6}>
+                            <Typography variant="h6" color="white" gutterbottom>
+                                Explore
                             </Typography>
-                            <Typography variant="subtitle1" color="white">
-                                Something here to give the footer a purpose!
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Typography variant="h6" color="white" gutterBottom>
-                                Footer
-                            </Typography>
-                            <Typography variant="subtitle1" color="white">
-                                Something here to give the footer a purpose!
+                            <Typography variant="subtitle1" color="white" gutterbottom>
+                                <a href="https://towardsdatascience.com/the-office-story-thats-what-the-data-said-224e8a6f47e">inspirations</a>
                             </Typography>
                         </Grid>
                     </Grid>

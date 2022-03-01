@@ -3,6 +3,7 @@ import AChart from './charts/AChart';
 import BarChart from './charts/BarChart';
 import IntroductionsBlock from './Components/IntroductionsBlock';
 import ElevateAppBar from './Components/MainAppBar';
+import MainBody from './Components/MainBody';
 import MainFooter from './Components/MainFooter';
 
 function App() {
@@ -11,13 +12,7 @@ function App() {
       <ElevateAppBar />
       <IntroductionsBlock />
       <header className="App-header">
-        <BarChart />
-        <AChart />
-        <p style={{color: 'white', margin: '10px'}}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Pellentesque euismod, urna eu tincidunt consectetur,
-          nisi nisl aliquam nunc, eu aliquet nisl nunc eu nisl.
-        </p>
+        <MainBody />
       </header>
       <MainFooter/>
     </div>

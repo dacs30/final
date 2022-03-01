@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   background-color: #282c34;
 }
 
@@ -14,7 +14,7 @@
   }
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   height: 100vh;
   display: flex;
@@ -22,6 +22,17 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: white;
+} */
+
+.main-body-item {
+  height: 100vh;
+  max-width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
   color: white;
 }
 
@@ -77,6 +88,18 @@
 
 #iframe-intro {
   pointer-events: none;
+}
+
+#footer {
+  margin-left: 10vw;
+}
+
+a:link {
+  color: white;
+}
+
+a:visited {
+  color: white;
 }
 
 .App-link {

@@ -1,69 +1,451 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+
+<html lang="en">
+  <head>
+    
+    <script src="https://kit.fontawesome.com/580339f9c9.js" crossorigin="anonymous"></script>
+    <script>
+      function changeBackground(image) {
+        if (image == 1){
+   document.body.style.backgroundImage = "url('https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/R%2BM.jpg?v=1645905015019')";}
+        if (image == 2){
+   document.body.style.backgroundImage = "url('https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/sunglasRM.png?v=1645907068512')";}
+}</script>
+<!-- Load d3.js -->
 <script src="https://d3js.org/d3.v6.js"></script>
+    <title>Orest Ropi Website</title>
+    <meta charset="utf-8" />
+<!-- drop down menu adapted from https://www.youtube.com/watch?v=f_E5d9Gt5nM&ab_channel=BeforeSemicolon-->
+    <style>
+      body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown .dropdown-toggle {
+  appearance: none;
+  background: #3F51B5;
+  color: #fff;
+  border: 0;
+  padding: 12px 585px 12px 12px;
+  border-radius: 3px;
+  text-align: left;
+  position: relative;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown .dropdown-toggle::after {
+  content: '';
+  border-width: 6px;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: inherit;
+  position: absolute;
+  right: 12px;
+  top: calc(50% + 3px);
+  transform: translateY(-50%);
+}
+
+.dropdown .dropdown-toggle.active::after {
+  border-color: transparent;
+  border-bottom-color: inherit;
+  top: calc(50% - 3px);
+}
+
+.dropdown .dropdown-menu {
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  transform: translateX(-50%);
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(150, 150, 150, 0.65);
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  max-width: 320px;
+  width: calc(100% + 24px);
+  border-radius: 3px;
+  z-index: 10;
+  visibility: hidden;
+  overflow: auto;
+  max-height: 200px;
+}
+
+.dropdown .dropdown-menu[aria-expanded="true"] {
+  visibility: visible;
+}
+
+.dropdown .dropdown-menu > li {
+  height: 35px;
+  display: block;
+  align-items: center;
+  padding: 10px 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown .dropdown-menu > li:hover,
+.dropdown .dropdown-menu > li:focus {
+  outline: none;
+  background: #f2f2f2;
+}
+
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+    </style>
+    <style>
+body {
+  background-image: url('https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/R%26MStarter.jpg?v=1646210228091');
+}
+</style>
+
+    <style>
+      li {
+        font-family: "Ubuntu";
+        text-align: center;
+      }
+    </style>
+    <style>
+      footer {
+        text-align: center
+      }
+    </style>
+    <style>
+      p {
+        font-family: "Ubuntu";
+        text-align: center;
+        line-height: 20pt;
+      }
+    </style>
+
+    <style>
+      a {
+        font-family: "Ubuntu";
+      }
+
+      img {
+        border-radius: 30%;
+      }
+    </style>
+
+    <style>
+      h1 {
+        color: #3305b0;
+        text-align: center;
+        font-size: 50px;
+        background-color: #f2ea07;
+        border-radius: 25%;
+      }
+      
+    </style>
+
+    <style>
+      h2 {
+        color: #12db37;
+        text-align: center;
+      }
+    </style>
+
+    <style>
+      h3 {
+        color: #078cb8;
+        text-align: center;
+      }
+    </style>
+
+    <style>
+      h4 {
+        color: #eb8900;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  
+  
+  
+  <body>
+    
+    <header><h1>Rick and Morty Treemap</h1></header>
+    
+    <main>
+        <!-- Dropdown menu -->
+      <div class="dropdown">
+  <button id="ShowButton" class="dropdown-toggle" type="button" aria-haspopup="true" >
+    Select from Seasons
+  </button>
+  <ul class="dropdown-menu" role="listbox" aria-expanded="false">
+    <li role="option" tabindex="0">Season 1</li>
+    <li role="option" tabindex="0">Season 2</li>
+    <li role="option" tabindex="0">Season 3</li>
+  </ul>
+</div>
+  <!-- Create a divs where the graphs will take place -->
 <div id="my_dataviz"></div>
+    </main>
+    
+    <footer>
+      <h1>Background Change</h1>
+<button onclick="changeBackground(1);" style="font-size:48px;color:red;background-color:black;border-radius: 30%; "> <i class="fa-solid fa-heart fa-beat"></i></button>&nbsp&nbsp&nbsp&nbsp
+    <button onclick="changeBackground(2);" style="font-size:48px;color:yellow;background-color:black;border-radius: 30%; "> <i class="fa-regular fa-sun fa-fade" style="--fa-beat-fade-opacity: 0.13; --fa-beat-fade-scale: 1.675;"></i></button>
+    </footer>
 
-<header>
+  </body>
 
-</header>
+  
+  
+  
+  
+  
+  
+  
+  <!-- my_dataviz -->
+  <script>
+    var season = localStorage.getItem("someSeason");
+    if (season != null){document.querySelector('#ShowButton').innerHTML = season;}
+    console.log(localStorage.getItem("someSeason"));
+    if (season == 'Season 1'){season = 'https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/RickAndMortyS1.CSV%20-%20Sheet1%20(1).csv?v=1646197383407';}
+    if (season == 'Season 2'){season = 'https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/RickAndMortyS2.CSV%20-%20Sheet1%20(1).csv?v=1646209602287';}
+    if (season == 'Season 3'){season = 'https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/RickAndMortyS3.CSV%20-%20Sheet1%20(1).csv?v=1646210002367';}
 
+  var hashmaps1 = new Map();
+  var hashmaps2 = new Map();
+  var hashmaps3 = new Map();
 
-<script>
-    //margins
-    const margin = {
-        top: 20,
-        right: 30,
-        bottom: 30,
-        left: 55
-    },
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+  var master = new Map();
+    
+  //parse
+  d3.csv("https://cdn.glitch.global/42ef66cc-8c79-4874-aa40-002089184c30/RickAndMortyScripts.csv?v=1646173357558").then(function (data) {
+    data.forEach((element) => {
+      switch (element["season no."]) {
+        case "1":
+          if (!hashmaps1.has(element.name)) {
+            hashmaps1.set(element.name, 1);
+          } else {
+            var temp = hashmaps1.get(element.name);
+            hashmaps1.set(element.name, temp + 1);
+          }
+          break;
+        case "2":
+          if (!hashmaps2.has(element.name)) {
+            hashmaps2.set(element.name, 1);
+          } else {
+            var temp = hashmaps2.get(element.name);
+            hashmaps2.set(element.name, temp + 1);
+          }
+          break;
+        case "3":
+          if (!hashmaps3.has(element.name)) {
+            hashmaps3.set(element.name, 1);
+          } else {
+            var temp = hashmaps3.get(element.name);
+            hashmaps3.set(element.name, temp + 1);
+          }
+          break;
+      }
 
-    //append svg and body
-    const svg = d3.select("#my_dataviz")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            `translate(${margin.left}, ${margin.top})`);
-
-    let dataArray = []
-
-    //parse
-    // d3.csv("RickAndMortyScripts.csv", function (data) {
-    //     dataArray.push(data);
-
-    //     document.getElementById("my_dataviz").innerHTML = data.name;
-
-    // });
-
-    let hashmap = new Map();
-
-    d3.csv("RickAndMortyScripts.csv").then(function (data) {
-        data.forEach((element) => {
-            if (!hashmap.has(element.name)) {
-                hashmap.set(element.name, 1);
-            } else {
-                var temp = hashmap.get(element.name);
-                hashmap.set(element.name, temp + 1);
-            }
-        });
-
-        // work with data here!!!!!!!!!!!!!!!!
-        // plot everything here!
-
-        // to access the data, use the hashmap
-        // console.log(hashmap("Rick")) // returns the number of times Rick appeared in the data;
-
-
+      if (!master.has(element.name)) {
+        master.set(element.name, 1);
+      } else {
+        var temp = master.get(element.name);
+        master.set(element.name, temp + 1);
+      }
     });
+        console.log(hashmaps1);
+     const mapSort1 = new Map([...hashmaps1.entries()].sort((a, b) => b[1] - a[1]));
+     const mapSort2 = new Map([...hashmaps2.entries()].sort((a, b) => b[1] - a[1]));
+     const mapSort3 = new Map([...hashmaps3.entries()].sort((a, b) => b[1] - a[1]));
 
-    //document.getElementById("my_dataviz").innerHTML = dataArray[0];
+    console.log(mapSort1);
+    console.log(mapSort2);
+    console.log(mapSort3);
+  });
+//adapted from https://www.d3-graph-gallery.com/graph/treemap_basic.html
+    
+// set the dimensions and margins of the graph
+const margin = {top: 10, right: 10, bottom: 10, left: 10},
+  width = 600 - margin.left - margin.right,
+  height = 600 - margin.top - margin.bottom;
 
-    //console.log(dataArray);
+// append the svg object to the body of the page
+const svg = d3.select("#my_dataviz")
+.append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+.append("g")
+  .attr("transform",
+        `translate(${margin.left}, ${margin.top})`);
+
+// Read data
+d3.csv(season).then(function(data) {
+
+  // stratify the data: reformatting for d3.js
+  const root = d3.stratify()     
+    .id(function(d) { return d.name; })   // Name of the entity (column name is name in csv)
+    .parentId(function(d) { return d.parent; })   // Name of the parent (column name is parent in csv)
+    (data);
+  root.sum(function(d) { return +d.value })   // Compute the numeric value for each entity
+  
+  color = d3.scaleOrdinal()
+    .domain(data.map(function(d) {return d.name}))
+    .range(d3.schemeCategory10)
+  // Then d3.treemap computes the position of each element of the hierarchy
+  // The coordinates are added to the root object above
+  d3.treemap()
+    .size([width, height])
+    .padding(4)
+    (root)
+
+  // use this information to add rectangles:
+  svg
+    .selectAll("rect")
+    .data(root.leaves())
+    .join("rect")
+      .attr('x', function (d) { return d.x0; })
+      .attr('y', function (d) { return d.y0; })
+      .attr('width', function (d) { return d.x1 - d.x0; })
+      .attr('height', function (d) { return d.y1 - d.y0; })
+      .style("stroke", "black")
+      .style('opacity','.85')
+      .on("mouseover", "fill", 'black')
+      .style("fill", function (d) { 
+    return color(d.data.name) });
+
+  // and to add the text labels
+  svg
+    .selectAll("text")
+    .data(root.leaves())
+    .join("text")
+      .attr("x", function(d){ return d.x0+10})    // +10 to adjust position (more right)
+      .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
+      .text(function(d){ return d.data.name})
+      .attr("font-size", "18px")
+      .attr("fill", "white")
+      .style("stroke-width", ".3px")
+      .style("stroke", "gold")
+})
 </script>
+  
 
-<body>
-    <h1 id="my_dataviz"></h1>
-</body>
+  <!-- dropdown function adapted from https://www.youtube.com/watch?v=f_E5d9Gt5nM&ab_channel=BeforeSemicolon-->
+  
+<script>function DropDown(dropDown) {
+  const [toggler, menu] = dropDown.children;
+  
+  const handleClickOut = e => {
+    if(!dropDown) {
+      return document.removeEventListener('click', handleClickOut);
+    }
+    
+    if(!dropDown.contains(e.target)) {
+      this.toggle(false);
+    }
+  };
+  
+  const setValue = (item) => {
+    const val = item.textContent;
+    toggler.textContent = val;
+    this.value = val;
+    var season = val;
+    
+    localStorage.setItem("someSeason", season);
+    window.location.reload();
+    this.toggle(false);
+    dropDown.dispatchEvent(new Event('change'));
+    toggler.focus();
+  }
+  
+  const handleItemKeyDown = (e) => {
+    e.preventDefault();
+
+    if(e.keyCode === 38 && e.target.previousElementSibling) { // up
+      e.target.previousElementSibling.focus();
+    } else if(e.keyCode === 40 && e.target.nextElementSibling) { // down
+      e.target.nextElementSibling.focus();
+    } else if(e.keyCode === 27) { // escape key
+      this.toggle(false);
+    } else if(e.keyCode === 13 || e.keyCode === 32) { // enter or spacebar key
+      setValue(e.target);
+    }
+  }
+
+  const handleToggleKeyPress = (e) => {
+    e.preventDefault();
+
+    if(e.keyCode === 27) { // escape key
+      this.toggle(false);
+    } else if(e.keyCode === 13 || e.keyCode === 32) { // enter or spacebar key
+      this.toggle(true);
+    }
+  }
+  
+  toggler.addEventListener('keydown', handleToggleKeyPress);
+  toggler.addEventListener('click', () => this.toggle());
+  [...menu.children].forEach(item => {
+    item.addEventListener('keydown', handleItemKeyDown);
+    item.addEventListener('click', () => setValue(item));
+  });
+  
+  this.element = dropDown;
+  
+  this.value = toggler.textContent;
+  
+  this.toggle = (expand = null) => {
+    expand = expand === null
+      ? menu.getAttribute('aria-expanded') !== 'true'
+      : expand;
+
+    menu.setAttribute('aria-expanded', expand);
+    
+    if(expand) {
+      toggler.classList.add('active');
+      menu.children[0].focus();
+      document.addEventListener('click', handleClickOut);
+      dropDown.dispatchEvent(new Event('opened'));
+    } else {
+      toggler.classList.remove('active');
+      dropDown.dispatchEvent(new Event('closed'));
+      document.removeEventListener('click', handleClickOut);
+    }
+  }
+}
+
+const dropDown = new DropDown(document.querySelector('.dropdown'));
+  
+dropDown.element.addEventListener('change', e => {
+  console.log('changed', dropDown.value);
+});
+
+dropDown.element.addEventListener('opened', e => {
+  console.log('opened', dropDown.value);
+});
+
+dropDown.element.addEventListener('closed', e => {
+  console.log('closed', dropDown.value);
+});
+
+</script>
+  
+  
+</html>

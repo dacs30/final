@@ -11,7 +11,7 @@ function IntroductionsBlock() {
           R&M DV
         </Typography>
         <Typography variant="h4" style={{ color: 'white', marginTop: 'auto' }}>
-          A simple way to vizualize data from Rick and Morty
+          A simple way to visualize data from Rick and Morty
         </Typography>
       </div>
       <div className='introduction-block'>

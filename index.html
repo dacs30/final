@@ -3,15 +3,19 @@
 <script src="https://d3js.org/d3.v6.js"></script>
 <div id="my_dataviz"></div>
 
+<header>
+
+</header>
+
 
 <script>
     //margins
     const margin = {
-            top: 20,
-            right: 30,
-            bottom: 30,
-            left: 55
-        },
+        top: 20,
+        right: 30,
+        bottom: 30,
+        left: 55
+    },
         width = 460 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
@@ -24,62 +28,42 @@
         .attr("transform",
             `translate(${margin.left}, ${margin.top})`);
 
-
-
-
+    let dataArray = []
 
     //parse
-    d3.csv("RickAndMortyScripts.csv", function(data) {
+    // d3.csv("RickAndMortyScripts.csv", function (data) {
+    //     dataArray.push(data);
 
-        console.log(data);
+    //     document.getElementById("my_dataviz").innerHTML = data.name;
 
-        // Add X axis
-        const x = d3.scaleLinear()
-            .domain(d3.extent(data, function(d) {
-                return d.year;
-            }))
-            .range([0, width]);
-        svg.append("g")
-            .attr("transform", `translate(0, ${height})`)
-            .call(d3.axisBottom(x).ticks(5));
+    // });
 
-        // Add Y axis
-        const y = d3.scaleLinear()
-            .domain([0, 200000])
-            .range([height, 0]);
-        svg.append("g")
-            .call(d3.axisLeft(y));
+    let hashmap = new Map();
 
-        // color palette
-        const color = d3.scaleOrdinal()
-            .domain(keys)
-            .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf'])
+    d3.csv("RickAndMortyScripts.csv").then(function (data) {
+        data.forEach((element) => {
+            if (!hashmap.has(element.name)) {
+                hashmap.set(element.name, 1);
+            } else {
+                var temp = hashmap.get(element.name);
+                hashmap.set(element.name, temp + 1);
+            }
+        });
 
-        //stack the data?
-        const stackedData = d3.stack()
-            .keys(keys)
-            (data)
-            //console.log("This is the stack result: ", stackedData)
+        // work with data here!!!!!!!!!!!!!!!!
+        // plot everything here!
 
-        // Show the areas
-        svg
-            .selectAll("mylayers")
-            .data(stackedData)
-            .join("path")
-            .style("fill", function(d) {
-                return color(d.key);
-            })
-            .attr("d", d3.area()
-                .x(function(d, i) {
-                    return x(d.data.year);
-                })
-                .y0(function(d) {
-                    return y(d[0]);
-                })
-                .y1(function(d) {
-                    return y(d[1]);
-                })
-            )
+        // to access the data, use the hashmap
+        // console.log(hashmap("Rick")) // returns the number of times Rick appeared in the data;
 
-    })
+
+    });
+
+    //document.getElementById("my_dataviz").innerHTML = dataArray[0];
+
+    //console.log(dataArray);
 </script>
+
+<body>
+    <h1 id="my_dataviz"></h1>
+</body>

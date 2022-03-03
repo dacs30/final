@@ -14,6 +14,12 @@
   }
 }
 
+::selection {
+  /* Change highlight background color to black */
+  background: #000;
+  /* Change highlight text color to orange */
+  color: orange;
+}
 /* .App-header {
   background-color: #282c34;
   height: 100vh;

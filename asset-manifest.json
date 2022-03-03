@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/final/static/css/main.239349fd.css",
+    "main.js": "/final/static/js/main.a0ae428a.js",
+    "static/js/787.fa529f7b.chunk.js": "/final/static/js/787.fa529f7b.chunk.js",
+    "static/media/rick-cover.gif": "/final/static/media/rick-cover.89e4a34cec9a4537d224.gif",
+    "static/media/footer-background.png": "/final/static/media/footer-background.d44d0a713a006c1c9666.png",
+    "static/media/introduction-gif.gif": "/final/static/media/introduction-gif.37fc4ab49d7797697050.gif",
+    "static/media/RickAndMortyScripts.csv": "/final/static/media/RickAndMortyScripts.c404971e55c382271c91.csv",
+    "static/media/logo.png": "/final/static/media/logo.15490d752fe4eb8555ba.png",
+    "index.html": "/final/index.html",
+    "main.239349fd.css.map": "/final/static/css/main.239349fd.css.map",
+    "main.a0ae428a.js.map": "/final/static/js/main.a0ae428a.js.map",
+    "787.fa529f7b.chunk.js.map": "/final/static/js/787.fa529f7b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.239349fd.css",
+    "static/js/main.a0ae428a.js"
+  ]
+}

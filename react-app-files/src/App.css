@@ -17,7 +17,7 @@
 ::selection {
   /* Change highlight background color to black */
   background: #000;
-  /* Change highlight text color to white */
+  /* Change highlight text color to orange */
   color: orange;
 }
 /* .App-header {

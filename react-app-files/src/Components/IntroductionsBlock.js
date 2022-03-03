@@ -8,7 +8,7 @@ function IntroductionsBlock() {
     <div style={{ height: '90vh' }}>
       <div style={{ zIndex: 2, position: 'relative', top: '30vh', left: 0, textAlign: 'center' }}>
         <Typography variant="h1" style={{ color: 'white', marginTop: 'auto' }}>
-          R&M DV
+          R&M DataViz
         </Typography>
         <Typography variant="h4" style={{ color: 'white', marginTop: 'auto' }}>
           A simple way to visualize data from Rick and Morty

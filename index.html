@@ -4,7 +4,6 @@
 <div id="my_dataviz"></div>
 
 <header>
-
 </header>
 
 
@@ -29,8 +28,186 @@
             `translate(${margin.left}, ${margin.top})`);
 
     let dataArray = []
-
     //parse
+
+    d3.csv("RickAndMortyScripts.csv").then(function (data) {
+        //add up all the words said by a character in each season
+        //List of groups
+
+        let s1 = [];
+        let s2 = [];
+        let s3 = [];
+
+        data.forEach(function (d) {
+            d['season no.'] = +d['season no.'];
+
+            if (d['season no.'] === 1) {
+                s1.push(d);
+            } else if (d['season no.'] === 2) {
+                s2.push(d);
+            } else if (d['season no.'] === 3) {
+                s3.push(d)
+            }
+        });
+
+        // create array of characters names
+        let characters = [];
+        data.forEach(function (d) {
+            if (!characters.includes(d.name)) {
+                characters.push(d.name);
+            }
+        });
+        console.log(characters)
+
+        // sum all character each time a character appears in a season
+        let s1_characters = s1.reduce((acc, cur) => {
+            if (acc[cur.name] === undefined) {
+                acc[cur.name] = 0;
+            }
+            acc[cur.name] += 1;
+            return acc;
+        }, {});
+
+        let s2_characters = s2.reduce((acc, cur) => {
+            if (acc[cur.name] === undefined) {
+                acc[cur.name] = 0;
+            }
+            acc[cur.name] += 1;
+            return acc;
+        }, {});
+
+        let s3_characters = s3.reduce((acc, cur) => {
+            if (acc[cur.name] === undefined) {
+                acc[cur.name] = 0;
+            }
+            acc[cur.name] += 1;
+            return acc;
+        }, {});
+
+        console.log(s1_characters);
+
+        let dataFinal = [];
+
+        characters.forEach(function (d) {
+            let obj = {};
+            obj.name = d;
+            obj.s1 = s1_characters[d] === undefined ? 0 : s1_characters[d];
+            obj.s2 = s2_characters[d] === undefined ? 0 : s2_characters[d];
+            obj.s3 = s3_characters[d] === undefined ? 0 : s3_characters[d];
+            dataFinal.push(obj);
+        });
+
+        console.log("datafinal: ", dataFinal);
+
+        const sumstat = d3.group(dataFinal, d => d['season no.'])
+        console.log("sumstat: ", sumstat)
+
+        //x axis
+        const x = d3.scaleLinear()
+            .domain(d3.extent(data, function (d) {
+                return d['season no.'];
+            }))
+            .range([0, width]);
+        svg.append("g")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x).ticks(5));
+
+        //y-axis
+        const y = d3.scaleLinear()
+            .domain([0, 300])
+            .range([height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        const group = [...characters];
+        const group1 = [...dataFinal]
+        console.log("group1", group1)
+
+        const stacked = d3.stack()
+            .keys(group1)
+            .value(function (d, key) {
+                return d[1][dataFinal[1]]
+            })
+            (sumstat)
+        console.log("stacked:", stacked)
+
+        //colors
+        const color = d3.scaleOrdinal()
+            .domain(group)
+            .range(['#c6f27d', '#af3db7', '#a5d9b0', '#cdecf0', '#f9a79f', '#04af7a', '#18fc24', '#7ee5f7',
+                '#df3403', '#7c829c', '#0e5c1f', '#211c61', '#9e759a', '#983fca', '#2d923c', '#0b1b97',
+                '#00d437', '#65985d', '#865148', '#77eb99', '#e3063b', '#461916', '#9ed9ef', '#612ea2',
+                '#9ef33a', '#021ca8', '#983d64', '#47c363', '#4d2437', '#acdfde', '#3d5053', '#bcee2d',
+                '#3ed773', '#812a46', '#c207ee', '#813838', '#f6002b', '#238573', '#1576af', '#7a265a',
+                '#574e85', '#744248'
+            ])
+        console.log(color)
+
+        // svg
+        //     .selectAll("mylayers")
+        //     .data(stacked)
+        //     .join("path")
+        //     .style("fill", function(d) {
+        //         name = group[d.key - 1];
+        //         return color(characters)
+        //     })
+        //     .attr("d", d3.area()
+        //         .x(function(d, i) {
+        //             console.log("h", dataFinal[0])
+        //             return x(d.sumstat[0]['']);
+        //         })
+        //         .y0(function(d) {
+        //             return y(d[0]);
+        //         })
+        //         .y1(function(d) {
+        //             return y(d[1]);
+        //         })
+        //     )
+
+
+        //i need to get a list of groups
+        // const keys = dataFinal.columns.slice(1)
+        // console.log(keys)
+
+        // //stack
+        // const stack = d3.stack()
+        //     .keys(dataFinal)
+        //     .value()
+        // console.log("Stack: ", stack);
+
+        //colors
+
+        console.log(color)
+
+        //area display
+        // svg
+        //     .selectAll("mylayers")
+        //     .data(stack)
+        //     .join("path")
+        //     .style("fill", function(d) {
+        //         return color(d.key)
+        //     })
+        //     .attr("d", d3.area()
+        //         .x(function(d, i) {
+        //             return x(d.data['season no.']);
+        //         })
+        //         .y0(function(d) {
+        //             return y(s1_characters[0]);
+        //         })
+        //         .y1(function(d) {
+        //             return y(s1_characters[1]);
+        //         })
+        //     )
+        // console.log(y(d[0]))
+
+    })
+
+
+
+
+
+
+
     // d3.csv("RickAndMortyScripts.csv", function (data) {
     //     dataArray.push(data);
 
@@ -38,32 +215,96 @@
 
     // });
 
-    let hashmap = new Map();
+    //     let hashmap = new Map();
 
-    d3.csv("RickAndMortyScripts.csv").then(function (data) {
-        data.forEach((element) => {
-            if (!hashmap.has(element.name)) {
-                hashmap.set(element.name, 1);
-            } else {
-                var temp = hashmap.get(element.name);
-                hashmap.set(element.name, temp + 1);
-            }
-        });
+    //     d3.csv("RickAndMortyScripts.csv").then(function(data) {
 
-        // work with data here!!!!!!!!!!!!!!!!
-        // plot everything here!
+    //         data.forEach((element) => {
+    //             if (!hashmap.has(element.name)) {
+    //                 hashmap.set(element.name, 1);
+    //             } else {
+    //                 var temp = hashmap.get(element.name);
+    //                 hashmap.set(element.name, temp + 1);
+    //             }
+    //         });
 
-        // to access the data, use the hashmap
-        // console.log(hashmap("Rick")) // returns the number of times Rick appeared in the data;
+    //         console.log(hashmap)
+
+    //         // work with data here!!!!!!!!!!!!!!!!
+    //         // plot everything here!
+
+    //         //x axis
+    //         const x = d3.scaleLinear()
+    //             .domain(d3.extent(data, function(d) {
+    //                 return d.season;
+    //             }))
+    //             .range([0, width]);
+    //         svg.append("g")
+    //             .attr("transform", 'translate(0, ${height})')
+    //             .call(d3.axisBottom(x).ticks(5));
 
 
-    });
+    //         // //y-axis
+    //         // const y = d3.scaleLinear()
+    //         //     .domain([0, 100000])
+    //         //     .range([height, 0]);
+    //         // svg.append("g")
+    //         //     .call(d3.axisLeft(y));
 
-    //document.getElementById("my_dataviz").innerHTML = dataArray[0];
+    //         // //i need to get a list of groups
+    //         // let keys = Array.from(hashmap.keys());
 
-    //console.log(dataArray);
+
+
+
+
+    //         // //stack
+    //         // const stack = d3.stack()
+    //         //     .keys(keys)
+    //         //     (data)
+    //         // console.log("Stack: ", stack);
+
+
+    //         // //colors
+    //         // const color = d3.scaleOrdinal()
+    //         //     .domain(keys)
+    //         //     .range(['#c6f27d', '#af3db7', '#a5d9b0', '#cdecf0', '#f9a79f', '#04af7a', '#18fc24', '#7ee5f7',
+    //         //         '#df3403', '#7c829c', '#0e5c1f', '#211c61', '#9e759a', '#983fca', '#2d923c', '#0b1b97',
+    //         //         '#00d437', '#65985d', '#865148', '#77eb99', '#e3063b', '#461916', '#9ed9ef', '#612ea2',
+    //         //         '#9ef33a', '#021ca8', '#983d64', '#47c363', '#4d2437', '#acdfde', '#3d5053', '#bcee2d',
+    //         //         '#3ed773', '#812a46', '#c207ee', '#813838', '#f6002b', '#238573', '#1576af', '#7a265a',
+    //         //         '#574e85', '#744248' ])
+
+    //         // //area display
+    //         // svg
+    //         //     .selectAll("mylayers")
+    //         //     .data(stack)
+    //         //     .join("path")
+    //         //     .style("fill", function (d) { return color(d.key) })
+    //         //     .attr("d", d3.area()
+    //         //         .x(function (d, i) { return x(d.data.get(0); })
+    //         //         .y0(function(d) { return y(d[0]); })
+    //         //         .y1(function (d) { return y(d[1]); })
+    //         //         )
+
+
+
+    //         // to access the data, use the hashmap
+    //         // console.log(hashmap("Rick")) // returns the number of times Rick appeared in the data;
+
+
+    //     });
+
+    //     //document.getElementById("my_dataviz").innerHTML = dataArray[0];
+
+    //     //console.log(dataArray);
+    //
 </script>
 
+//
+
 <body>
+    //
     <h1 id="my_dataviz"></h1>
+    //
 </body>

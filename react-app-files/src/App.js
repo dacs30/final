@@ -11,9 +11,7 @@ function App() {
     <div className="App">
       <ElevateAppBar />
       <IntroductionsBlock />
-      <header className="App-header">
-        <MainBody />
-      </header>
+      <MainBody />
       <MainFooter/>
     </div>
   );

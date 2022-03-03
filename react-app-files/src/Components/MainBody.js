@@ -125,7 +125,7 @@ function MainBody() {
                             members besides Rick and Morty.
                         </p>
                         <Grid item xs={12} sm={12} md={12} style={{ display: "flex", justifyContent: "center" }}>
-                            <Paper style={{ width: 800, maxWidth: 800, height: 500, paddingLeft : 40 }}>
+                            <Paper style={{ width: 1000, maxWidth: 1000, height: 600, paddingLeft : 40 }}>
                                 {finalData.length > 0 && characters.length > 0 ? <StackedLineChart
                                     // center the component
                                     style={{

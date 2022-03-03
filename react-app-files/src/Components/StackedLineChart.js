@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import useD3 from '../hooks/useD3';
 import Grid from '@mui/material/Grid';
-
+import $ from 'jquery';
 
 function StackedLineChart({ data, characters }) {
 
@@ -65,7 +65,7 @@ function StackedLineChart({ data, characters }) {
 
             characters.forEach(function (c, i) {
                 legend.append("circle")
-                .attr("cx", 130).attr("cy", 130 + (i * 20)).attr("r", 6).style("fill", colors[i]);
+                    .attr("cx", 130).attr("cy", 130 + (i * 20)).attr("r", 6).style("fill", colors[i]);
 
                 legend.append("text")
                     .attr("x", 0).attr("y", 130 + (i * 20))
@@ -80,15 +80,17 @@ function StackedLineChart({ data, characters }) {
 
         });
 
+   
     return (
         <div>
             <Grid container direction={'row'} spacing={1}>
                 <Grid style={{ display: "flex", justifyContent: "flex-start" }} item xs={8}>
-                    <svg style={{
+                    {/* <svg style={{
                         height: 600,
                         width: "100%",
                         margin: "20"
-                    }} ref={ref}></svg>
+                    }} ref={ref}></svg> */}
+                    <iframe scrolling='no' width={"950px"} height={"600px"} id="iframe-chart" src="https://dacs30.github.io/stacked-area-chart-d3/" style={{display:"hidden"}}></iframe>
                 </Grid>
                 <Grid style={{ display: "flex", justifyContent: "flex-start" }} item xs={4}>
                     <svg id="legend" height="400" width="100%"></svg>

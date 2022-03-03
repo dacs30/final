@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import useD3 from '../hooks/useD3';
 import Grid from '@mui/material/Grid';
 
+
 function StackedLineChart({ data, characters }) {
 
     const ref = useD3(

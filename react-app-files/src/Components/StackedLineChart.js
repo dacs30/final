@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import useD3 from '../hooks/useD3';
+import Grid from '@mui/material/Grid';
 
 
 function StackedLineChart({ data, characters }) {
@@ -20,7 +21,7 @@ function StackedLineChart({ data, characters }) {
             svg.attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", "translate(" + margin.left + ","+ margin.top + ")");
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             svg.append("g")
                 .attr("transform", "translate(0," + (height - spacing) + ")")
@@ -60,17 +61,40 @@ function StackedLineChart({ data, characters }) {
                 .attr("d", area)
                 .style("fill", function (d, i) { return colors[i]; });
 
+            var legend = d3.select("#legend");
 
+            characters.forEach(function (c, i) {
+                legend.append("circle")
+                .attr("cx", 130).attr("cy", 130 + (i * 20)).attr("r", 6).style("fill", colors[i]);
 
+                legend.append("text")
+                    .attr("x", 0).attr("y", 130 + (i * 20))
+                    .text(c)
+                    .style("font-size", "15px").attr("alignment-baseline", "middle");
+            });
+
+            // legend.append("circle").attr("cx", 100).attr("cy", 130).attr("r", 6).style("fill", "#69b3a2")
+            // legend.append("circle").attr("cx", 100).attr("cy", 160).attr("r", 6).style("fill", "#404080")
+            // legend.append("text").attr("x", 0).attr("y", 130).text("variable A").style("font-size", "15px").attr("alignment-baseline", "middle")
+            // legend.append("text").attr("x", 0).attr("y", 160).text("variable B").style("font-size", "15px").attr("alignment-baseline", "middle")
 
         });
 
     return (
-        <svg style={{
-            height: 600,
-            width: "100%",
-            margin: "20"
-        }} ref={ref}></svg>
+        <div>
+            <Grid container direction={'row'} spacing={1}>
+                <Grid style={{ display: "flex", justifyContent: "flex-start" }} item xs={8}>
+                    <svg style={{
+                        height: 600,
+                        width: "100%",
+                        margin: "20"
+                    }} ref={ref}></svg>
+                </Grid>
+                <Grid style={{ display: "flex", justifyContent: "flex-start" }} item xs={4}>
+                    <svg id="legend" height="400" width="100%"></svg>
+                </Grid>
+            </Grid>
+        </div>
     )
 }
 
